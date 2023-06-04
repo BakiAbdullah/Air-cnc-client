@@ -4,13 +4,14 @@ import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../hooks/useAuth";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useRef } from "react";
+import { saveUser } from "../../api/auth";
 
 const Login = () => {
   const { loading, setLoading, signIn, resetPassword, signInWithGoogle } =
     useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/'
+  const from = location.state?.from?.pathname || "/";
   const emailRef = useRef();
 
   //Handle Submit
@@ -50,11 +51,13 @@ const Login = () => {
       });
   };
 
-  // Handle Google Sing In
+  // Handle Google Sign In
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result);
+        // TODO: save user to db by using custom hook fetch
+        saveUser(result.user);
         navigate(from, { replace: true });
       })
       .catch((err) => {

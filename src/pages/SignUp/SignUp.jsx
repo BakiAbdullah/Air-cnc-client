@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { saveUser } from "../../api/auth";
 
 const SignUp = () => {
   const {
@@ -48,6 +49,8 @@ const SignUp = () => {
             updateUserProfile(name, imageUrl)
               .then(() => {
                 toast.success("Signup successful");
+                // TODO: save user to db by using custom hook fetch
+                saveUser(result.user)
                 navigate(from, { replace: true });
               })
               .catch((err) => {
@@ -77,6 +80,8 @@ const SignUp = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
+        // TODO: save user to db by using custom hook fetch
+        saveUser(result.user);
         navigate(from, { replace: true });
       })
       .catch((err) => {

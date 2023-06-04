@@ -25,7 +25,9 @@ const MenuDropdown = () => {
           className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
         >
           <AiOutlineMenu />
-          <div className="hidden md:block"><Avatar /></div>
+          <div className="hidden md:block">
+            <Avatar />
+          </div>
         </div>
       </div>
       {isOpen && (
@@ -38,12 +40,20 @@ const MenuDropdown = () => {
               Home
             </Link>
             {user ? (
-              <div
-                onClick={logOut}
-                className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
-              >
-                Logout
-              </div>
+              <>
+                <Link
+                  to="/dashboard"
+                  className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                >
+                  Dashboard
+                </Link>
+                <div
+                  onClick={logOut}
+                  className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                >
+                  Logout
+                </div>
+              </>
             ) : (
               <>
                 <Link
