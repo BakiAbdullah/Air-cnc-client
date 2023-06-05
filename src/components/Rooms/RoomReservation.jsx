@@ -1,8 +1,11 @@
 import React from 'react';
 import Calender from "../Rooms/Calender";
 import Button from "../Button/Button";
+import { useAuth } from '../../hooks/useAuth';
+import BookingModal from '../Modal/BookingModal';
 
-const RoomReservation = () => {
+const RoomReservation = ({roomData}) => {
+  const {user, role} = useAuth();
   return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
       <div className="flex flex-row items-center gap-1 p-4">
@@ -10,16 +13,19 @@ const RoomReservation = () => {
         <div className="font-light text-neutral-600">night</div>
       </div>
       <hr />
-      <Calender/>
+      <div className="flex justify-center">
+        <Calender />
+      </div>
       <hr />
       <div className="p-4">
-        <Button label="Reserve" />
+        <Button disabled={roomData.host.email === user.email} label="Reserve" />
       </div>
       <hr />
       <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
         <div>Total</div>
         <div>$ 300</div>
       </div>
+      <BookingModal></BookingModal>
     </div>
   );
 };
