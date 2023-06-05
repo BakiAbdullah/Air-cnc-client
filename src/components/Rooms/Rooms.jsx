@@ -15,7 +15,7 @@ const Rooms = () => {
 
   useEffect(() => {
     setLoading(true);
-   getAllRooms()
+    getAllRooms()
       .then((data) => {
         if (category) {
           const filtered = data.filter((room) => room.category === category);

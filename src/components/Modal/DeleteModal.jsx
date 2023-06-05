@@ -1,8 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { format } from "date-fns";
 import { Fragment } from "react";
 
-const BookingModal = ({ modalHandler, closeModal, isOpen, bookingInfo }) => {
+const DeleteModal = ({ modalHandler, closeModal, isOpen, id }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -32,34 +31,13 @@ const BookingModal = ({ modalHandler, closeModal, isOpen, bookingInfo }) => {
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium text-center leading-6 text-gray-900"
+                  className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  Review Info Before Reserve
+                  Are you sure ?
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
-                    Room: {bookingInfo.title}
-                  </p>
-                </div>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Location: {bookingInfo.location}
-                  </p>
-                </div>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Guest: {bookingInfo.guest.name}
-                  </p>
-                </div>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    From: {format(new Date(bookingInfo.from), "PP")} - To:{" "}
-                    {format(new Date(bookingInfo.to), "PP")}
-                  </p>
-                </div>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Price: $ {bookingInfo.price}
+                    You cannot undo once it's done!
                   </p>
                 </div>
                 <hr className="mt-8 " />
@@ -67,16 +45,16 @@ const BookingModal = ({ modalHandler, closeModal, isOpen, bookingInfo }) => {
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                    onClick={closeModal}
+                    onClick={() => modalHandler(id)}
                   >
-                    Cancel
+                    Yes
                   </button>
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
-                    onClick={modalHandler}
+                    onClick={closeModal}
                   >
-                    Pay {bookingInfo.price}$
+                    No
                   </button>
                 </div>
               </Dialog.Panel>
@@ -88,4 +66,4 @@ const BookingModal = ({ modalHandler, closeModal, isOpen, bookingInfo }) => {
   );
 };
 
-export default BookingModal;
+export default DeleteModal;

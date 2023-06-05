@@ -55,14 +55,14 @@ const AddRoom = () => {
           category,
         };
 
-        // post room data to server
+        // post room data to Database Via Server
         addRoom(roomData)
           .then((data) => {
             console.log(data);
             setUploadButtonText("Uploaded!");
             setLoading(false);
             toast.success("Room Added!");
-            // navigate("/dashboard/my-listings");
+            navigate("/dashboard/my-listings");
           })
           .catch((err) => console.log(err));
 
