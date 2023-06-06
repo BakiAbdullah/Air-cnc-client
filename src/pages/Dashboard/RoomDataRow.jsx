@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { deleteRoom } from "../../api/rooms";
 import DeleteModal from "../../components/Modal/DeleteModal";
 
-const RoomDataRow = ({ room, fetchRooms }) => {
+const RoomDataRow = ({ room, refetch }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -18,7 +18,7 @@ const RoomDataRow = ({ room, fetchRooms }) => {
     deleteRoom(id)
       .then((data) => {
         console.log(data);
-        fetchRooms();
+        refetch();
         toast.success("Room deleted");
       })
       .catch((err) => console.log(err));
