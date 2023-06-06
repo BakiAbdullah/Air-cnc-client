@@ -90,7 +90,7 @@ const UpdateRoomModal = ({ setIsEditModalOpen, isOpen, refetch, room, id }) => {
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Update Room Info
+                  Update Room info
                 </Dialog.Title>
                 <div className="mt-2 w-full">
                   <UpdateRoomForm
