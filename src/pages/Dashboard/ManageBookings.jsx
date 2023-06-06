@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { getRooms } from "../../api/rooms";
-import RoomDataRow from "./RoomDataRow";
+import TableRow from "../../components/Dashboard/TableRow";
+import { getHostBookings } from "../../api/bookings";
 import EmptyState from "../../components/Shared/EmptyState";
-import Loader from "../../components/Shared/Loader/Loader";
 
-const MyListings = () => {
+const ManageBookings = () => {
+  const [bookings, setBookings] = useState([]);
   const { user } = useAuth();
-  const [rooms, setRooms] = useState([]);
-  const fetchRooms = () => getRooms(user?.email).then((data) => setRooms(data));
 
+  const fetchBookings = () => {
+    getHostBookings(user?.email).then((data) => {
+      setBookings(data);
+    });
+  };
   useEffect(() => {
-    fetchRooms();
+    fetchBookings();
   }, [user]);
 
   return (
     <>
-      {rooms && Array.isArray(rooms) && rooms.length > 0 ? (
+      {bookings && Array.isArray(bookings) && bookings.length > 0 ? (
         <div className="container mx-auto px-4 sm:px-8">
           <div className="py-8">
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -58,24 +61,18 @@ const MyListings = () => {
                         scope="col"
                         className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                       >
-                        Delete
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                      >
-                        Update
+                        Action
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {rooms &&
-                      rooms.map((room) => (
-                        <RoomDataRow
-                          key={room?._id}
-                          room={room}
-                          fetchRooms={fetchRooms}
-                        />
+                    {bookings &&
+                      bookings.map((booking) => (
+                        <TableRow
+                          key={booking._id}
+                          booking={booking}
+                          fetchBookings={fetchBookings}
+                        ></TableRow>
                       ))}
                   </tbody>
                 </table>
@@ -85,13 +82,13 @@ const MyListings = () => {
         </div>
       ) : (
         <EmptyState
-          message={"No Room Data Available!"}
-          address={"/dashboard/add-room"}
-          label={"Add Rooms"}
+          message={"No Booking Data Available!"}
+          address={"/"}
+          label={"Go Back"}
         ></EmptyState>
       )}
     </>
   );
 };
 
-export default MyListings;
+export default ManageBookings;

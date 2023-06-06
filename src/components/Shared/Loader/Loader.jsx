@@ -2,6 +2,7 @@ import { ScaleLoader } from "react-spinners";
 
 const Loader = () => {
   return (
+    // To Center Loader Use This Css Styles
     <div
       className="
       h-[70vh]

@@ -1,6 +1,6 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Avatar from "./Avatar";
 import HostRequestModal from "../../Modal/HostRequestModal";
 import { useAuth } from "../../../hooks/useAuth";
@@ -8,6 +8,7 @@ import { becomeHost } from "../../../api/auth";
 import { toast } from "react-hot-toast";
 
 const MenuDropdown = () => {
+  const navigate = useNavigate();
   const { user, logOut, role, setRole } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
@@ -18,6 +19,7 @@ const MenuDropdown = () => {
       console.log(data);
       toast.success("You are host now, Post Rooms!");
       setRole("host");
+      navigate('/dashboard/add-room');
       closeModal();
     });
     console.log("Modal Continue Button clicked!");
@@ -35,10 +37,10 @@ const MenuDropdown = () => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         {/* Aircnc btn */}
-        <div className="hidden md:block text-sm font-semibold rounded-full py-3 px-8 transition">
+        <div className="hidden md:block ">
           {!role && (
             <button
-              className="cursor-pointer hover:bg-neutral-100 rounded-full py-3 px-4"
+              className="cursor-pointer text-sm font-semibold transition hover:bg-neutral-100 rounded-full py-3 px-4"
               onClick={() => setModal(true)}
               disabled={!user}
             >
@@ -59,7 +61,7 @@ const MenuDropdown = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
+        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             <Link
               to="/"
